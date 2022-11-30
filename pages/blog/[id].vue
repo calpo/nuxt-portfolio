@@ -7,6 +7,7 @@
                 <p>{{ data.date}}</p>
                 <ContentDoc />
             </div>
+            <prevNext />
         </div>
     </div>
 </template>
@@ -15,4 +16,8 @@
 const { data } = await useAsyncData(useRoute().path, () =>
     queryContent(useRoute().path).findOne()
 )
+
+const [prev, next] = await queryContent("/blog")
+    .sort({ id: 1 })
+    .findSurround(useRoute().path)
 </script>
